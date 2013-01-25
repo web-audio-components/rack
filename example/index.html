@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../build/build.css" />
+    <link rel="stylesheet" href="../rack.css" />
+    <title></title>
+  </head>
+  <body>
+    <script src="../build/build.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+      var context = new webkitAudioContext()
+        , request = new XMLHttpRequest()
+        , Delay = require("web-audio-components-delay")
+        , Rack = require("rack")
+        , delay = new Delay(context, 2, 1.0, 0.8)
+        , delayRack = new Rack(delay);
+
+      request.open("get", "human-voice.wav", true);
+      request.responseType = "arraybuffer";
+      request.onload = function () {
+        context.decodeAudioData(request.response, function (buffer) {
+
+          var node = context.createBufferSource();
+          node.buffer = buffer;
+
+          node.connect(delay.input);
+          delay.connect(context.destination);
+
+          node[node.start ? 'start' : 'noteOn'](0);
+
+        });
+      };
+//      request.send();
+    </script>
+    <div id="container">
+    </div>
+    <script>
+        document.getElementById('container').appendChild(delayRack.el);
+    </script>
+  </body>
+</html>
