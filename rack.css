@@ -4,7 +4,7 @@
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: #333;
   width: 800px;
-  height: 120px;
+  height: 125px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -13,6 +13,7 @@
   background-image: -moz-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
   background-image: -webkit-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
   background-image: -ms-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
+  border: 1px solid #ddd;
 }
 
 .rack-container .rack-logo {
@@ -21,26 +22,35 @@
   height: 100px;
 }
 
-.rack-container .rack-logo-text {
-  color: #999;
+.rack-text {
+  text-transform: lowercase;
+  position: absolute;
+  left: 15px;
+  top: 105px;
 }
 
 .rack-container .rack-name {
-  position: absolute;
-  left: 120px;
-  top: 0px;
+  float: left;
+  margin-top: 10px;
   font-size: 30px;
+}
+
+.rack-container .rack-logo-text {
+  float: left;
+  margin-top: 24px;
+  margin-left: 5px;
+  color: #999;
 }
 
 .rack-container .rack-params {
   list-style-type: none;
   position: absolute;
-  left: 120px;
-  top: 20px;
+  right: 0px;
+  top: 10px;
 }
 
 .rack-container .rack-param {
-  float: left;
+  float: right;
   width: 100px;
   height: 100px;
   text-align: center;
