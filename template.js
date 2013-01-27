@@ -7,9 +7,10 @@ module.exports =
       '<div class="rack-param">' +
         '<div class="rack-param-name">{{name}}</div>' +
         '<div class="rack-param-control">' +
-          '<div class="rack-param-control-{{type}}"></div>' +
+          '<input type="number" class="rack-param-input-{{name}}" ' +
+            'data-type="{{type}}" data-name="{{name}}" />' +
         '</div>' +
-        '<div class="rack-param-value">{{value}}</div>' +
+        '<div class="rack-param-value rack-param-value-{{name}}">{{value}}</div>' +
       '</div>' +
     '{{/params}}' +
   '</div>' +
