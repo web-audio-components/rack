@@ -89,7 +89,6 @@ function createDial (inputEl, props, name, module, feedbackEl) {
   });
 
   dial.on('change', function (val) {
-    console.log(val);
     val = (val || 0).toFixed(2);
     val = props.type === 'int' ? parseInt(val) : val;
     feedbackEl.innerHTML = val;
