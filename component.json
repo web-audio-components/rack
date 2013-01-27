@@ -6,18 +6,21 @@
     "web audio components",
     "gui",
     "softsynth",
-    "rack"
+    "rack",
+    "audio",
+    "web-audio",
+    "synth"
   ],
   "dependencies": {
     "matthewmueller/hogan": "*",
     "component/domify": "*",
-    "manuelstofer/each": "*"
+    "component/dom": "*",
+    "manuelstofer/each": "*",
+    "jsantell/dial": "*"
   },
   "development": {
     "web-audio-components/delay": "*",
-    "jsantell/allen": "*",
-    "visionmedia/mocha": "*",
-    "component/assert": "*"
+    "jsantell/allen": "*"
   },
   "scripts": [
     "index.js",
