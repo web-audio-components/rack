@@ -16,7 +16,8 @@
     "component/domify": "*",
     "component/dom": "*",
     "manuelstofer/each": "*",
-    "jsantell/dial": "*"
+    "jsantell/dial": "*",
+    "jsantell/button": "*"
   },
   "development": {
     "web-audio-components/delay": "*",

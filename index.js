@@ -8,6 +8,7 @@ var
   domify    = require('domify'),
   hogan     = require('hogan'),
   Dial      = require('dial'),
+  Button    = require('button'),
   template  = require('./template');
 
 /**
@@ -73,12 +74,56 @@ Rack.prototype.bind = function () {
     if (type === 'float' || type === 'int') {
       control = createDial(input, props, name, module, feedbackEl);
     } else if (type === 'bool') {
-
+      control = createButton(input, name, module);
     }
+
+    that.controls.push(control);
   });
 
   return this;
 };
+
+/**
+ * Unbinds all the controls' event handlers
+ *
+ * @return {Rack}
+ * @api public
+ */
+
+Rack.prototype.unbind = function () {
+  each(this.controls || [], function (control) {
+    control.destroy();
+  });
+  return this;
+};
+
+/**
+ * Destroys rack element, unbinds all events
+ *
+ * @return {Rack}
+ * @api public
+ */
+
+Rack.prototype.destroy = function () {
+  this.unbind();
+  if (this.el.parentElement) {
+    parent.removeChild(this.el);
+  }
+  return this;
+};
+
+/**
+ * Creates a dial for UI controls,
+ * bound to the module's param
+ *
+ * @param {HTMLInputElement} inputEl
+ * @param {Object} props
+ * @param {String} name
+ * @param {Object} module
+ * @param {HTMLDivElement} feedbackEl
+ * @return {Dial}
+ * @api private
+ */
 
 function createDial (inputEl, props, name, module, feedbackEl) {
   var dial = new Dial(inputEl, {
@@ -94,12 +139,36 @@ function createDial (inputEl, props, name, module, feedbackEl) {
     feedbackEl.innerHTML = val;
     module[name] = val;
   }).emit('change', module[name]);
+
+  return dial;
+}
+
+/**
+ * Creates a button for UI controls,
+ * bound to the module's param
+ *
+ * @param {HTMLInputElement} inputEl
+ * @param {String} name
+ * @param {Object} module
+ * @return {Button}
+ * @api private
+ */
+
+function createButton (inputEl, name, module) {
+  var button = new Button(inputEl, !!module[name]);
+
+  button.on('change', function (val) {
+    module[name] = !!val;
+  }).emit('change', !!module[name]);
+
+  return button;
 }
 
 /**
  * Creates an object to be used for
  * passing into the templating engine
  *
+ * @return {Object}
  * @api private
  */
 
@@ -118,7 +187,10 @@ function getRenderData (module) {
       max: values.max,
       min: values.min,
       type: values.type,
-      value: value
+      value: value,
+      inputType: values.type === 'bool'
+        ? 'checkbox'
+        : 'number'
     });
   });
 
