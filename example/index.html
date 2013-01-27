@@ -8,11 +8,26 @@
     <title>Rack - A GUI for Web Audio Components</title>
   </head>
   <body>
+    <div id="container">
+        <div id="gui"></div>
+        <div id="controls">
+            <a href="#" id="play">play</a>
+            <a href="#" id="stop">stop</a>
+            <div id="loading">loading</div>
+        </div>
+    </div>
     <script src="../build/build.js" type="text/javascript"></script>
     <script type="text/javascript">
-      var Rack  = require('rack');
-      var allen = require('jsantell-allen/allen.js');
-      var ctx   = allen.getAudioContext();
+      var Rack       = require('rack');
+      var events     = require('component-event');
+      var allen      = require('jsantell-allen/allen.js');
+      var ctx        = allen.getAudioContext();
+      var bufferNode = ctx.createBufferSource();
+      var buffer;
+
+      var playEl = document.getElementById('play');
+      var stopEl = document.getElementById('stop');
+      var loadEl = document.getElementById('loading');
 
       /**
        * When testing, require and instantiate
@@ -28,21 +43,47 @@
       var rack  = new Rack(module);
       var xhr = allen.getBuffer('human-voice.wav', function () {
         ctx.decodeAudioData(xhr.response, function (buffer) {
-          var node = ctx.createBufferSource();
-          node.buffer = buffer;
-
-          node.connect(module.input);
+          loaded();
+          bufferNode = ctx.createBufferSource();
+          bufferNode.buffer = buffer;
           module.connect(ctx.destination);
-
-          node[node.start ? 'start' : 'noteOn'](0);
         });
       }, true);
 
-    </script>
-    <div id="container">
-    </div>
-    <script>
-        document.getElementById('container').appendChild(rack.el);
+
+      events.bind(playEl, 'click', function (e) {
+        e.preventDefault();
+        play();
+      });
+
+      events.bind(stopEl, 'click', function (e) {
+        e.preventDefault();
+        stop();
+      });
+
+      function loaded () {
+        loadEl.style.display = 'none';
+        playEl.style.display = 'block';
+      }
+
+      function play () {
+        var buffer = bufferNode.buffer;
+        playEl.style.display = 'none';
+        stopEl.style.display = 'block';
+        bufferNode = ctx.createBufferSource();
+        bufferNode.buffer = buffer;
+        bufferNode.connect(module.input);
+        bufferNode[bufferNode.start ? 'start' : 'noteOn'](0);
+      }
+
+      function stop () {
+        playEl.style.display = 'block';
+        stopEl.style.display = 'none';
+        bufferNode.noteOff(0);
+        bufferNode.disconnect();
+      }
+
+      document.getElementById('gui').appendChild(rack.el);
     </script>
   </body>
 </html>
