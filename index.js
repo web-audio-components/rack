@@ -176,7 +176,7 @@ function getRenderData (module) {
   var meta = module.meta || {};
   var data = {};
 
-  data.name = module.meta.name;
+  data.name = format(module.meta.name);
   data.params = [];
 
   each(meta.params, function (values, prop) {
@@ -195,4 +195,16 @@ function getRenderData (module) {
   });
 
   return data;
+}
+
+/**
+ * Strips white space, converts to hyphens
+ *
+ * @param {String} string
+ * @return {String}
+ * @api private
+ */
+
+function format (string) {
+  return (string || '').replace(/ /g, '-');
 }
