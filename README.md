@@ -49,3 +49,7 @@ document.getElementById('container').appendChild(rack.el);
 ## Example
 
 View the [example](http://web-audio-components.github.com/rack) or check out the repo and run `component install --dev && component build --dev` and view the example page.
+
+## Tests
+
+Holding off on tests until component with both button and dials available
