@@ -1,7 +1,7 @@
 {
   "name": "rack",
   "description": "GUI for your web audio components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords" : [
     "web audio components",
     "gui",
@@ -26,6 +26,9 @@
   "scripts": [
     "index.js",
     "template.js"
+  ],
+  "images": [
+    "webaudiocomponents-logo.png"
   ],
   "styles": [
     "rack.css"
