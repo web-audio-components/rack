@@ -27,6 +27,7 @@
   position: absolute;
   left: 15px;
   top: 105px;
+  line-height: normal;
 }
 
 .rack-container .rack-name {
