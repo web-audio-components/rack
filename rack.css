@@ -8,11 +8,11 @@
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  background-image: linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
-  background-image: -o-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
-  background-image: -moz-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
-  background-image: -webkit-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
-  background-image: -ms-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,225,230) 54%);
+  background-image: linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,230,230) 54%);
+  background-image: -o-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,230,230) 54%);
+  background-image: -moz-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,230,230) 54%);
+  background-image: -webkit-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,230,230) 54%);
+  background-image: -ms-linear-gradient(bottom, rgb(189,189,189) 0%, rgb(230,230,230) 54%);
   border: 1px solid #ddd;
 }
 
