@@ -73,6 +73,8 @@ Rack.prototype.bind = function () {
 
     if (type === 'float' || type === 'int') {
       control = createDial(input, props, name, module, feedbackEl);
+    } else if (type === 'enum') {
+      control = createEnumDial(input, props, name, module, feedbackEl);
     } else if (type === 'bool') {
       control = createButton(input, name, module);
     }
@@ -115,6 +117,7 @@ Rack.prototype.destroy = function () {
 /**
  * Creates a dial for UI controls,
  * bound to the module's param
+ * for number based inputs
  *
  * @param {HTMLInputElement} inputEl
  * @param {Object} props
@@ -139,6 +142,42 @@ function createDial (inputEl, props, name, module, feedbackEl) {
     feedbackEl.innerHTML = val;
     module[name] = val;
   }).emit('change', module[name]);
+
+  return dial;
+}
+
+/**
+ * Creates a dial for UI controls,
+ * bound to the module's param
+ * for enumerator based inputs
+ *
+ * @param {HTMLInputElement} inputEl
+ * @param {Object} props
+ * @param {String} name
+ * @param {Object} module
+ * @param {HTMLDivElement} feedbackEl
+ * @return {Dial}
+ * @api private
+ */
+
+function createEnumDial (inputEl, props, name, module, feedbackEl) {
+  var values = props.values || [];
+  var current = ~values.indexOf(module[name])
+    ? values.indexOf(module[name])
+    : values.indexOf(props.defaultValue);
+
+  var dial = new Dial(inputEl, {
+    min: 0,
+    max: values.length - 1,
+    value: current,
+    float: false
+  });
+
+  dial.on('change', function (val) {
+    val = values[val];
+    feedbackEl.innerHTML = val;
+    module[name] = val;
+  }).emit('change', current);
 
   return dial;
 }
