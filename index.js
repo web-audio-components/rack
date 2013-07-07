@@ -45,7 +45,7 @@ function Rack (module) {
 Rack.prototype.render = function () {
   var data = getRenderData(this.module);
   var render = hogan(template, data);
-  this.el = domify(render)[0];
+  this.el = domify(render);
   return this;
 };
 
@@ -227,6 +227,7 @@ function getRenderData (module) {
       min: values.min,
       type: values.type,
       value: value,
+      desc: values.description,
       inputType: values.type === 'bool'
         ? 'checkbox'
         : 'number'
